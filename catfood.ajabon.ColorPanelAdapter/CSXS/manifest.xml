@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="6.0" ExtensionBundleId="catfood.ajabon.ColorPanelAdapter" ExtensionBundleVersion="0.8.0"
+		ExtensionBundleName="ColorPanelAdapter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ExtensionList>
+		<Extension Id="catfood.ajabon.ColorPanelAdapter" Version="1.0.0" />
+	</ExtensionList>
+	<ExecutionEnvironment>
+		<HostList>
+            <Host Name="ILST" Version="[27.0,29.9]" />
+		</HostList>
+		<LocaleList>
+			<Locale Code="All" />
+		</LocaleList>
+		<RequiredRuntimeList>
+			<RequiredRuntime Name="CSXS" Version="6.0" />
+		</RequiredRuntimeList>
+	</ExecutionEnvironment>
+	<DispatchInfoList>
+		<Extension Id="catfood.ajabon.ColorPanelAdapter">
+			<DispatchInfo >
+				<Resources>
+				<MainPath>./index.html</MainPath>
+				<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+				</Resources>
+				<Lifecycle>
+					<AutoVisible>false</AutoVisible>
+					<StartOn>
+                    	<Event>applicationActivate</Event>
+                    </StartOn>
+				</Lifecycle>
+				<UI>
+					<Type>Custom</Type>
+					<Geometry>
+						<Size>
+							<Height>1</Height>
+							<Width>1</Width>
+						</Size>                   
+					</Geometry>
+				</UI>
+			</DispatchInfo>
+		</Extension>
+	</DispatchInfoList>
+</ExtensionManifest>
