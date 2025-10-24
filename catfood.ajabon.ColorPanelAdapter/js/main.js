@@ -18,41 +18,26 @@
     waitForAdapter(function() {
         console.log("AIEventAdapter ready");
 
+        // ドキュメントがアクティブになったとき
+        csInterface.addEventListener("documentAfterActivate", evalJsx);
+        // テンプレートから新規ドキュメント
         AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After New From Template", evalJsx);
-
+        // 新規ドキュメント
         AIEventAdapter.getInstance().addEventListener("AI Document New Notifier", evalJsx);
-
+        // ドキュメントを開いたとき
         AIEventAdapter.getInstance().addEventListener("AI Document Opened Notifier", evalJsx);
+                // CMYKモード（動かない）
+        // AIEventAdapter.getInstance().addEventListener("AI Command Notifier: Before Color Mode CMYK", evalJsx);
+                // RGBモード（動かない）
+        // AIEventAdapter.getInstance().addEventListener("AI Command Notifier: Before Color Mode RGB", evalJsx);
 
-        AIEventAdapter.getInstance().addEventListener("AI Document Closed Notifier", evalJsx);
-
-        AIEventAdapter.getInstance().addEventListener("AI Document Color Model Changed Notifier", evalJsx);
-
-        AIEventAdapter.getInstance().addEventListener("AI Document Profiles Changed Notifier", evalJsx);
-
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Color Mode CMYK", evalJsx);
-
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Color Mode RGB", evalJsx);
-
-        AIEventAdapter.getInstance().addEventListener("AI Document View Changed Notifier", evalJsx);
-
-
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Cascade", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Vertical", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Float in Window", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Float All in Windows", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Consolidate AllWindows", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Select Window", evalJsx);
-        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Arrange Windows - Horizontal", evalJsx);
-        // 前面ドキュメントの切り替え、カラーモードの変更 に対応できていない
+        // カラーモードの変更 に対応できていない
 
         AIEventAdapter.getInstance().addEventListener("AI Command Notifier: Before Quit", function(e){
+            csInterface.removeEventListener("documentAfterActivate", evalJsx);
             AIEventAdapter.getInstance().removeEventListener("AI Command Notifier: After New From Template", evalJsx);
             AIEventAdapter.getInstance().removeEventListener("AI Document New Notifier", evalJsx);
             AIEventAdapter.getInstance().removeEventListener("AI Document Opened Notifier", evalJsx);
-            AIEventAdapter.getInstance().removeEventListener("AI Document Closed Notifier", evalJsx);
-            AIEventAdapter.getInstance().removeEventListener("AI Document Color Model Changed Notifier", evalJsx);
-            AIEventAdapter.getInstance().removeEventListener("AI Document Profiles Changed Notifier", evalJsx);
         });
 
 

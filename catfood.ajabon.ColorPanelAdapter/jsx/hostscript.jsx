@@ -1,16 +1,15 @@
 var currentDocName;
-
-function sayHello(){
-    alert("hello from ExtendScript");
-}
+var currentColorSpace;
 
 function switchColorPanel(){
     if(app.documents.length == 0) return;
 	if(app.activeDocument.name == currentDocName) return;
 	currentDocName = app.activeDocument.name;
-	// alert("かえるでー");
-
     var colorSpace = app.activeDocument.documentColorSpace.toString().replace(/^.+\./, "");
+	if(colorSpace == currentColorSpace) return;
+	// alert("かえるでー"); // test
+
+	currentColorSpace = colorSpace;
 	colorSpace = colorSpace == "RGB"? "HSB" : colorSpace; // RGBならHSBに、CMYKならCMYKのままに
     addActionSet();
     app.doScript(colorSpace, "ColorPanel");
