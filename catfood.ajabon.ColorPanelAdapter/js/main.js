@@ -2,8 +2,6 @@
     'use strict';
      var csInterface = new CSInterface();
 
-    // themeManager.init();
-
     function waitForAdapter(callback) {
         if (typeof AIEventAdapter !== "undefined") {
             callback();
@@ -13,10 +11,23 @@
     }
 
     function evalJsx(){
-        csInterface.evalScript('switchColorPanel()');
+        csInterface.evalScript("switchColorPanel()");
     }
+
+    // ui.jsからのVulcanMessage受信
+    const hostEnv = csInterface.getHostEnvironment();
+    const hostId = hostEnv.appId + hostEnv.appVersion;
+    const vulcanNamespace = VulcanMessage.TYPE_PREFIX + hostId;
+
+    // ラジオボタンの設定をロード？
+    VulcanInterface.addMessageListener(vulcanNamespace + "_radio", function (rt){
+        csInterface.evalScript("changePanelMode('" + JSON.parse(VulcanInterface.getPayload(rt)) + "');");
+    });
+    
+
     waitForAdapter(function() {
-        console.log("AIEventAdapter ready");
+        // console.log("AIEventAdapter ready");
+        sendMessage("AIEventAdapter ready");
 
         // ドキュメントがアクティブになったとき
         csInterface.addEventListener("documentAfterActivate", evalJsx);
@@ -26,10 +37,10 @@
         AIEventAdapter.getInstance().addEventListener("AI Document New Notifier", evalJsx);
         // ドキュメントを開いたとき
         AIEventAdapter.getInstance().addEventListener("AI Document Opened Notifier", evalJsx);
-                // CMYKモード（動かない）
-        // AIEventAdapter.getInstance().addEventListener("AI Command Notifier: Before Color Mode CMYK", evalJsx);
-                // RGBモード（動かない）
-        // AIEventAdapter.getInstance().addEventListener("AI Command Notifier: Before Color Mode RGB", evalJsx);
+        // CMYKモード（動かない）
+        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Color Mode CMYK", evalJsx);
+        // RGBモード（動かない）
+        AIEventAdapter.getInstance().addEventListener("AI Command Notifier: After Color Mode RGB", evalJsx);
 
         // カラーモードの変更 に対応できていない
 
@@ -38,11 +49,19 @@
             AIEventAdapter.getInstance().removeEventListener("AI Command Notifier: After New From Template", evalJsx);
             AIEventAdapter.getInstance().removeEventListener("AI Document New Notifier", evalJsx);
             AIEventAdapter.getInstance().removeEventListener("AI Document Opened Notifier", evalJsx);
+            AIEventAdapter.getInstance().removeEventListener("AI Command Notifier: After Color Mode CMYK", evalJsx);
+            AIEventAdapter.getInstance().removeEventListener("AI Command Notifier: After Color Mode RGB", evalJsx);
         });
 
 
     });
 
+    function sendMessage(val){
+        const vulcanNamespace = VulcanMessage.TYPE_PREFIX + hostId + "_to_ui";
+        const msg = new VulcanMessage(vulcanNamespace);
+        msg.setPayload(JSON.stringify(val));//jsonも渡せる
+        VulcanInterface.dispatchMessage(msg);
+    }
 
 }());
     

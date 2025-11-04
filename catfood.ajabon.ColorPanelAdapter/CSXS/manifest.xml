@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="6.0" ExtensionBundleId="catfood.ajabon.ColorPanelAdapter" ExtensionBundleVersion="0.9.0"
+<ExtensionManifest Version="11.0" ExtensionBundleId="catfood.ajabon.ColorPanelAdapter" ExtensionBundleVersion="1.0.0"
 		ExtensionBundleName="ColorPanelAdapter" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
 		<Extension Id="catfood.ajabon.ColorPanelAdapter" Version="1.0.0" />
+		<Extension Id="catfood.ajabon.RGBModeSelector" Version="1.0.0" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-            <Host Name="ILST" Version="[27.0,29.9]" />
+            <Host Name="ILST" Version="[27.0,30.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
 		</LocaleList>
 		<RequiredRuntimeList>
-			<RequiredRuntime Name="CSXS" Version="6.0" />
+			<RequiredRuntime Name="CSXS" Version="11.0" />
 		</RequiredRuntimeList>
 	</ExecutionEnvironment>
 	<DispatchInfoList>
@@ -38,6 +39,26 @@
 					</Geometry>
 				</UI>
 			</DispatchInfo>
-		</Extension>
-	</DispatchInfoList>
+		</Extension>		
+		<Extension Id="catfood.ajabon.RGBModeSelector">
+			<DispatchInfo >
+				<Resources>
+				<MainPath>./ui.html</MainPath>
+				<!-- <ScriptPath>./jsx/hostscript.jsx</ScriptPath> -->
+				</Resources>
+				<Lifecycle>
+					<AutoVisible>true</AutoVisible>
+				</Lifecycle>
+				<UI>
+					<Type>Panel</Type>
+					<Menu>ColorPanel_Setting</Menu>
+					<Geometry>
+						<Size>
+							<Height>80</Height>
+							<Width>200</Width>
+						</Size>                   
+					</Geometry>
+				</UI>
+			</DispatchInfo>
+		</Extension>		</DispatchInfoList>
 </ExtensionManifest>
