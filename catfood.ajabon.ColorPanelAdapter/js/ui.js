@@ -31,7 +31,8 @@
 
     //環境設定をUIに復元
     if(modeVal){
-        $("#modeVal").checked = true;
+        console.log($(`#${modeVal}`).prop("checked"));
+        $(`#${modeVal}`).prop("checked", true);
     } else{
         getRadioState();
     }
@@ -50,6 +51,7 @@
 
     // ラジオボタンの状態を送信
     function sendMode(val){
+        console.log("sendMode: ", val);
         const msg = new VulcanMessage(vulcanNamespace + "_radio");
         msg.setPayload(JSON.stringify(val));//jsonも渡せる
         VulcanInterface.dispatchMessage(msg);
