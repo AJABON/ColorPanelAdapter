@@ -1,6 +1,6 @@
 var currentDocName; // さっきまでアクティブだったドキュメントの名前
 var currentColorSpace; // さっきまでのカラーモード
-var panelMode; // カラーパネルのモード_CEPから受け取る
+var panelMode = "RGB"; // カラーパネルのモード初期値_CEPから受け取る
 
 function changePanelMode(val){
     cp("changePanelMode from jsx: " + val);
